@@ -26,3 +26,12 @@ console.log(list.pop());
 console.log(list.pop());
 console.log(list.pop());
 console.log(list.toString());
+
+list.insertAt(1, 0);
+list.insertAt(2, 1);
+list.insertAt(3, 2);
+list.insertAt(4, 3);
+list.insertAt(0, 0);
+list.insertAt(2.5, 3);
+
+console.log(list.toString());

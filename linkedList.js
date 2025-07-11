@@ -72,6 +72,7 @@ class LinkedList {
     let ptr = this.listHead;
     if (ptr.next == null) {
       this.listHead = null;
+      this.listSize--;
       return ptr;
     }
     while (ptr.next.next != null) {
@@ -79,6 +80,7 @@ class LinkedList {
     }
     const popped = ptr.next;
     ptr.next = null;
+    this.listSize--;
     return popped;
   }
 
@@ -105,6 +107,24 @@ class LinkedList {
       index++;
     }
     return null;
+  }
+
+  insertAt(value, index) {
+    if (index < 0 || index > this.listSize) {
+      console.log("Index out of bounds");
+      return;
+    }
+    if (index === 0) {
+      this.prepend(value);
+      return;
+    }
+    let ptr = this.listHead;
+    while (index-- > 1) {
+      ptr = ptr.next;
+    }
+    const newNode = new Node(value, ptr.next);
+    ptr.next = newNode;
+    this.listSize++;
   }
 
   toString() {
