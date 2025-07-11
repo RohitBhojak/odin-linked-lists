@@ -42,8 +42,27 @@ class LinkedList {
   }
 
   tail() {
+    if (this.listHead === null) {
+      return this.listHead;
+    }
     let ptr = this.listHead;
-    while (ptr.next != null) {
+    while (ptr.next !== null) {
+      ptr = ptr.next;
+    }
+    return ptr;
+  }
+
+  at(index) {
+    const size = this.size();
+    if (index < 0) index += size;
+    if (index < 0 || index >= size) {
+      return "Index out of range";
+    }
+    let ptr = this.listHead;
+    if (ptr === null) {
+      return "Empty List";
+    }
+    while (index-- > 0) {
       ptr = ptr.next;
     }
     return ptr;
