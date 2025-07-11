@@ -8,11 +8,13 @@ class Node {
 class LinkedList {
   constructor() {
     this.listHead = null;
+    this.listSize = 0;
   }
   append(value) {
-    let newNode = new Node(value);
+    const newNode = new Node(value);
     if (this.listHead === null) {
       this.listHead = newNode;
+      this.listSize++;
       return;
     }
     let ptr = this.listHead;
@@ -20,21 +22,17 @@ class LinkedList {
       ptr = ptr.next;
     }
     ptr.next = newNode;
+    this.listSize++;
   }
 
   prepend(value) {
-    let newNode = new Node(value, this.listHead);
+    const newNode = new Node(value, this.listHead);
     this.listHead = newNode;
+    this.listSize++;
   }
 
   size() {
-    let ptr = this.listHead;
-    let count = 0;
-    while (ptr != null) {
-      ptr = ptr.next;
-      count++;
-    }
-    return count;
+    return this.listSize;
   }
 
   head() {
@@ -53,9 +51,8 @@ class LinkedList {
   }
 
   at(index) {
-    const size = this.size();
-    if (index < 0) index += size;
-    if (index < 0 || index >= size) {
+    if (index < 0) index += this.listSize;
+    if (index < 0 || index >= this.listSize) {
       return "Index out of range";
     }
     let ptr = this.listHead;
@@ -66,6 +63,23 @@ class LinkedList {
       ptr = ptr.next;
     }
     return ptr;
+  }
+
+  pop() {
+    if (this.listHead == null) {
+      return "Empty List";
+    }
+    let ptr = this.listHead;
+    if (ptr.next == null) {
+      this.listHead = null;
+      return ptr;
+    }
+    while (ptr.next.next != null) {
+      ptr = ptr.next;
+    }
+    const popped = ptr.next;
+    ptr.next = null;
+    return popped;
   }
 
   toString() {
