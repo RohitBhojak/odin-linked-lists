@@ -127,6 +127,23 @@ class LinkedList {
     this.listSize++;
   }
 
+  removeAt(index) {
+    if (index < 0 || index >= this.listSize) {
+      return "Index out of bounds";
+    }
+    if (index == 0) {
+      this.listHead = this.listHead.next;
+      this.listSize--;
+      return;
+    }
+    let ptr = this.listHead;
+    while (index-- > 1) {
+      ptr = ptr.next;
+    }
+    ptr.next = ptr.next.next;
+    this.listSize--;
+  }
+
   toString() {
     let ptr = this.listHead;
     let string = "";
