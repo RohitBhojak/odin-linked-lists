@@ -6,44 +6,48 @@ class Node {
 }
 
 class LinkedList {
+  #emptyListError = "Empty List";
+  #indexOutOfBoundsError = "Index out of bounds";
+  #listHead;
+  #listSize;
   constructor() {
-    this.listHead = null;
-    this.listSize = 0;
+    this.#listHead = null;
+    this.#listSize = 0;
   }
   append(value) {
     const newNode = new Node(value);
-    if (this.listHead === null) {
-      this.listHead = newNode;
-      this.listSize++;
+    if (this.#listHead === null) {
+      this.#listHead = newNode;
+      this.#listSize++;
       return;
     }
-    let ptr = this.listHead;
+    let ptr = this.#listHead;
     while (ptr.next != null) {
       ptr = ptr.next;
     }
     ptr.next = newNode;
-    this.listSize++;
+    this.#listSize++;
   }
 
   prepend(value) {
-    const newNode = new Node(value, this.listHead);
-    this.listHead = newNode;
-    this.listSize++;
+    const newNode = new Node(value, this.#listHead);
+    this.#listHead = newNode;
+    this.#listSize++;
   }
 
   size() {
-    return this.listSize;
+    return this.#listSize;
   }
 
   head() {
-    return this.listHead;
+    return this.#listHead;
   }
 
   tail() {
-    if (this.listHead === null) {
-      return this.listHead;
+    if (this.#listHead === null) {
+      return this.#listHead;
     }
-    let ptr = this.listHead;
+    let ptr = this.#listHead;
     while (ptr.next !== null) {
       ptr = ptr.next;
     }
@@ -51,13 +55,13 @@ class LinkedList {
   }
 
   at(index) {
-    if (index < 0) index += this.listSize;
-    if (index < 0 || index >= this.listSize) {
-      return "Index out of range";
+    if (index < 0) index += this.#listSize;
+    if (index < 0 || index >= this.#listSize) {
+      return this.#indexOutOfBoundsError;
     }
-    let ptr = this.listHead;
+    let ptr = this.#listHead;
     if (ptr === null) {
-      return "Empty List";
+      return this.#emptyListError;
     }
     while (index-- > 0) {
       ptr = ptr.next;
@@ -66,13 +70,13 @@ class LinkedList {
   }
 
   pop() {
-    if (this.listHead == null) {
-      return "Empty List";
+    if (this.#listHead == null) {
+      return this.#emptyListError;
     }
-    let ptr = this.listHead;
+    let ptr = this.#listHead;
     if (ptr.next == null) {
-      this.listHead = null;
-      this.listSize--;
+      this.#listHead = null;
+      this.#listSize--;
       return ptr;
     }
     while (ptr.next.next != null) {
@@ -80,12 +84,12 @@ class LinkedList {
     }
     const popped = ptr.next;
     ptr.next = null;
-    this.listSize--;
+    this.#listSize--;
     return popped;
   }
 
   contains(value) {
-    let ptr = this.listHead;
+    let ptr = this.#listHead;
     while (ptr !== null) {
       if (ptr.value === value) {
         return true;
@@ -97,7 +101,7 @@ class LinkedList {
   }
 
   find(value) {
-    let ptr = this.listHead;
+    let ptr = this.#listHead;
     let index = 0;
     while (ptr !== null) {
       if (ptr.value === value) {
@@ -110,42 +114,42 @@ class LinkedList {
   }
 
   insertAt(value, index) {
-    if (index < 0 || index > this.listSize) {
-      console.log("Index out of bounds");
+    if (index < 0 || index > this.#listSize) {
+      console.log(this.#indexOutOfBoundsError);
       return;
     }
     if (index === 0) {
       this.prepend(value);
       return;
     }
-    let ptr = this.listHead;
+    let ptr = this.#listHead;
     while (index-- > 1) {
       ptr = ptr.next;
     }
     const newNode = new Node(value, ptr.next);
     ptr.next = newNode;
-    this.listSize++;
+    this.#listSize++;
   }
 
   removeAt(index) {
-    if (index < 0 || index >= this.listSize) {
-      return "Index out of bounds";
+    if (index < 0 || index >= this.#listSize) {
+      return this.#indexOutOfBoundsError;
     }
     if (index == 0) {
-      this.listHead = this.listHead.next;
-      this.listSize--;
+      this.#listHead = this.#listHead.next;
+      this.#listSize--;
       return;
     }
-    let ptr = this.listHead;
+    let ptr = this.#listHead;
     while (index-- > 1) {
       ptr = ptr.next;
     }
     ptr.next = ptr.next.next;
-    this.listSize--;
+    this.#listSize--;
   }
 
   toString() {
-    let ptr = this.listHead;
+    let ptr = this.#listHead;
     let string = "";
     while (ptr != null) {
       string += `( ${ptr.value} ) -> `;

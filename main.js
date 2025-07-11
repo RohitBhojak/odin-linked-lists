@@ -36,4 +36,5 @@ list.insertAt(2.5, 3);
 
 list.removeAt(0);
 list.removeAt(2);
+
 console.log(list.toString());
