@@ -82,6 +82,22 @@ class LinkedList {
     return popped;
   }
 
+  contains(value) {
+    if (this.listHead === null) {
+      return false;
+    }
+
+    let ptr = this.listHead;
+    while (ptr != null) {
+      if (ptr.value === value) {
+        return true;
+      }
+      ptr = ptr.next;
+    }
+
+    return false;
+  }
+
   toString() {
     let ptr = this.listHead;
     let string = "";
