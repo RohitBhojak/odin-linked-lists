@@ -83,12 +83,8 @@ class LinkedList {
   }
 
   contains(value) {
-    if (this.listHead === null) {
-      return false;
-    }
-
     let ptr = this.listHead;
-    while (ptr != null) {
+    while (ptr !== null) {
       if (ptr.value === value) {
         return true;
       }
@@ -96,6 +92,19 @@ class LinkedList {
     }
 
     return false;
+  }
+
+  find(value) {
+    let ptr = this.listHead;
+    let index = 0;
+    while (ptr !== null) {
+      if (ptr.value === value) {
+        return index;
+      }
+      ptr = ptr.next;
+      index++;
+    }
+    return null;
   }
 
   toString() {
